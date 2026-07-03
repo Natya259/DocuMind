@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "dgSpecHash": "WPNtT1hYXws=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api\\Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\natya\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\natya\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\natya\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\natya\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\natya\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\natya\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'Swashbuckle.AspNetCore.SwaggerUI' 6.2.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-qrmm-w75w-3wpx",
+      "projectPath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api\\Api.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api\\Api.csproj",
+      "libraryId": "Swashbuckle.AspNetCore.SwaggerUI",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}
