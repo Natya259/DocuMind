@@ -1,45 +1,64 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import axios from 'axios'
 import './App.css'
 
 function App() {
 
   const [statusCode, setStatusCode] = useState<number | null>(null);
-  
+
   const handleClick = async () => {
     try {
-      const response = await fetch('https://localhost:7218/health');
-      setStatusCode(response.status);
-      console.log(response);
+      // const response = await fetch('https://localhost:7218/health');
+      // setStatusCode(response.status);
+      // console.log(response);
+
+      const inputElement = document.getElementById("fileInput") as HTMLInputElement;
+      const formData = new FormData();
+      if (inputElement.files) {
+        for (const file of inputElement.files) {
+          formData.append("Files", file);
+        }
+      }
+
+      const docsResponse = await axios.post("https://localhost:7218/api/documents",
+        formData
+      );
+      setStatusCode(docsResponse.status);
+
+      console.log(docsResponse.status);
     } catch (error) {
-      console.error('Error fetching health check:', error);
+      console.error('Error uploading documents:', error);
     }
   };
+
 
   return (
     <>
       <section id="center">
-        
+
         <div>
           <h1>Get started</h1>
           <p>
-            Click button to call health check API.
+            Upload your documents and let our AI analyze them for you...
           </p>
         </div>
+
+        <div>
+          <input type="file" id="fileInput" multiple />
+        </div>
+        
         <button
           type="button"
           className="counter"
           onClick={handleClick}
         >
-          Health Check
+          Upload documents
         </button>
       </section>
       {
         statusCode !== null && (
           <div>
-            <h2>Health Check Response:</h2>
+            <h2>Upload Response:</h2>
             <p>Status Code: {statusCode}</p>
           </div>
         )
