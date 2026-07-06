@@ -70,3 +70,11 @@ C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\obj\Debug\net10.0\
 C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\obj\Debug\net10.0\Api.csproj.Up2Date
 C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\obj\Debug\net10.0\Api.genruntimeconfig.cache
 C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\obj\Debug\net10.0\ref\Api.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\bin\Debug\net10.0\UglyToad.PdfPig.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\bin\Debug\net10.0\UglyToad.PdfPig.Core.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\bin\Debug\net10.0\UglyToad.PdfPig.Fonts.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\bin\Debug\net10.0\UglyToad.PdfPig.Tokenization.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\bin\Debug\net10.0\UglyToad.PdfPig.Tokens.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api\bin\Debug\net10.0\storage\Chunks\chunks_a620a6f5-cffb-4ff5-8562-f5f03a2fa811.json
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api\bin\Debug\net10.0\storage\Chunks\chunks_113fca9b-5227-4ac9-8c0d-1c0c82003640.json
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api\bin\Debug\net10.0\storage\Chunks\chunks_411a984b-df03-4b7b-b9c7-9219ddd0cce2.json

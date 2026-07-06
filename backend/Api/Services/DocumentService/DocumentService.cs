@@ -1,30 +1,33 @@
 using DocuMind.Api.Common;
+using DocuMind.Api.Common.Models;
 using DocuMind.Api.Features.Documents.Upload;
+using DocuMind.Api.Services.ChunkRepositoryService;
+using DocuMind.Api.Services.ExtractAndChunkService;
 using DocuMind.Api.Services.FileStorageService;
 
 namespace DocuMind.Api.Services.DocumentService;
 
-public class DocumentUploadService : IDocumentService
+public class DocumentService : IDocumentService
 {
     private readonly IFileStorageService _fileStorageService;
+    private readonly IPdfTextExtractor _pdfTextExtractor;
+    private readonly IChunkRepository _chunkRepository;
 
-    public DocumentUploadService(IFileStorageService fileStorageService)
+    public DocumentService(IFileStorageService fileStorageService, IPdfTextExtractor pdfTextExtractor, IChunkRepository chunkRepository)
     {
         _fileStorageService = fileStorageService;
+        _pdfTextExtractor = pdfTextExtractor;
+        _chunkRepository = chunkRepository;
     }
 
     public async Task<UploadDocumentResponseDTO> UploadDocumentsAsync(UploadDocumentRequestDTO request)
     {
-        ErrorResponse error = new ErrorResponse();
-        string errorMessage = string.Empty;
-        string errorCode = string.Empty;
-
         // Validate the request - check if files are provided
         if (request.Files == null || !request.Files.Any())
         {
             var errorResponse = new UploadDocumentResponseDTO
             {
-                RequestId = string.Empty,
+                RequestId = Guid.Empty,
                 UploadedDocuments = Array.Empty<UploadedDocuments>(),
                 Error = new ErrorResponse
                 {
@@ -34,7 +37,6 @@ public class DocumentUploadService : IDocumentService
 
             };
             return errorResponse;
-
         }
 
         else if (request.Files.Count > 5)
@@ -42,7 +44,7 @@ public class DocumentUploadService : IDocumentService
 
             var errorResponse = new UploadDocumentResponseDTO
             {
-                RequestId = string.Empty,
+                RequestId = Guid.Empty,
                 UploadedDocuments = Array.Empty<UploadedDocuments>(),
                 Error = new ErrorResponse
                 {
@@ -61,7 +63,7 @@ public class DocumentUploadService : IDocumentService
             {
                 var errorResponse = new UploadDocumentResponseDTO
                 {
-                    RequestId = string.Empty,
+                    RequestId = Guid.Empty,
                     UploadedDocuments = Array.Empty<UploadedDocuments>(),
                     Error = new ErrorResponse
                     {
@@ -78,7 +80,7 @@ public class DocumentUploadService : IDocumentService
             {
                 var errorResponse = new UploadDocumentResponseDTO
                 {
-                    RequestId = string.Empty,
+                    RequestId = Guid.Empty,
                     UploadedDocuments = Array.Empty<UploadedDocuments>(),
                     Error = new ErrorResponse
                     {
@@ -94,7 +96,7 @@ public class DocumentUploadService : IDocumentService
             {
                 var errorResponse = new UploadDocumentResponseDTO
                 {
-                    RequestId = string.Empty,
+                    RequestId = Guid.Empty,
                     UploadedDocuments = Array.Empty<UploadedDocuments>(),
                     Error = new ErrorResponse
                     {
@@ -107,15 +109,21 @@ public class DocumentUploadService : IDocumentService
             }
 
         }
-        
+
         // Store the files using the file storage service
         var uploadedDocuments = await _fileStorageService.StoreFileAsync(request.Files);
 
+        //call the pdfTextExtractor class to extract text from the uploaded pdfs and store it in the database
+        var chunks = await _pdfTextExtractor.ExtractTextFromPdfAsync(uploadedDocuments);
+
+        //save the chunk using ChunkRepository's SaveChunks method
+        await _chunkRepository.SaveChunksAsync(chunks);
+
         var response = new UploadDocumentResponseDTO
         {
-            RequestId = Guid.NewGuid().ToString(),
+            RequestId = Guid.NewGuid(),
             UploadedDocuments = uploadedDocuments
-        };
+        };      
 
         return response;
     }

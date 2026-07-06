@@ -8,10 +8,6 @@ function App() {
 
   const handleClick = async () => {
     try {
-      // const response = await fetch('https://localhost:7218/health');
-      // setStatusCode(response.status);
-      // console.log(response);
-
       const inputElement = document.getElementById("fileInput") as HTMLInputElement;
       const formData = new FormData();
       if (inputElement.files) {
@@ -46,7 +42,7 @@ function App() {
         <div>
           <input type="file" id="fileInput" multiple />
         </div>
-        
+
         <button
           type="button"
           className="counter"

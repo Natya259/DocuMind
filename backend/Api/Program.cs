@@ -1,5 +1,7 @@
 using DocuMind.Api.Features.Documents.Upload;
+using DocuMind.Api.Services.ChunkRepositoryService;
 using DocuMind.Api.Services.DocumentService;
+using DocuMind.Api.Services.ExtractAndChunkService;
 using DocuMind.Api.Services.FileStorageService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,13 +24,16 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddHealthChecks();
 builder.Services.AddSingleton<IFileStorageService, LocalFileStorageService>();
-builder.Services.AddScoped<IDocumentService, DocumentUploadService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
+builder.Services.AddScoped<IPdfTextExtractor, PdfTextExtractor>();
+builder.Services.AddScoped<ITextChunker, TextChunker>();
+builder.Services.AddScoped<IChunkRepository, ChunkRepository>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{
+{   
     app.UseSwagger();
     app.UseSwaggerUI();
 }
