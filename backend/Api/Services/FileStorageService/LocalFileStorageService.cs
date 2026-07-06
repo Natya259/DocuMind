@@ -1,11 +1,7 @@
-// implement IfileStorageService's StoreFileAsync method. Store it in a local path : api/storage/documents.
-//If the path dos not exist, create it. Return the path of the stored file.
 using DocuMind.Api.Features.Documents.Upload;
-using DocuMind.Api.Services.FileStorageService;
 namespace DocuMind.Api.Services.FileStorageService;
 public class LocalFileStorageService : IFileStorageService
 {
-    private readonly IFileStorageService _fileStorageService;
     public LocalFileStorageService()
     {
     }
@@ -17,13 +13,13 @@ public class LocalFileStorageService : IFileStorageService
 
         UploadedDocuments[] result = new UploadedDocuments[files.Count];
         // Create the storage folder if it doesn't exist
-        var storagePath = Path.Combine(Directory.GetCurrentDirectory(), "storage", "documents");
+        var storagePath = Path.Combine(Directory.GetCurrentDirectory(), "Storage", "Documents");
         if (!Directory.Exists(storagePath))
         {
             Directory.CreateDirectory(storagePath);
         }
 
-        var documentIds = new List<string>();
+        var documentIds = new List<Guid>();
         var originalFileNames = new List<string>();
         var filepaths = new List<string>();
 
@@ -39,7 +35,7 @@ public class LocalFileStorageService : IFileStorageService
                 await file.CopyToAsync(stream);
             }
 
-            documentIds.Add(uniqueFileName);
+            documentIds.Add(Guid.Parse(uniqueFileName));
             originalFileNames.Add(file.FileName);
             filepaths.Add(filePath);
         }
