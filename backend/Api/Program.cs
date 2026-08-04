@@ -1,6 +1,7 @@
 using DocuMind.Api.Features.Documents.Upload;
 using DocuMind.Api.Services.ChunkRepositoryService;
 using DocuMind.Api.Services.DocumentService;
+using DocuMind.Api.Services.EmbeddingService;
 using DocuMind.Api.Services.ExtractAndChunkService;
 using DocuMind.Api.Services.FileStorageService;
 
@@ -28,6 +29,11 @@ builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Services.AddScoped<IPdfTextExtractor, PdfTextExtractor>();
 builder.Services.AddScoped<ITextChunker, TextChunker>();
 builder.Services.AddScoped<IChunkRepository, ChunkRepository>();
+builder.Services.AddScoped<IEmbeddingProvider, EmbeddingProvider>();
+builder.Services.AddScoped<IGoogleGenAiClient, GoogleGenAiClient>();
+builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
+builder.Services.Configure<GoogleAIOptions>(
+builder.Configuration.GetSection(GoogleAIOptions.SectionName));
 
 var app = builder.Build();
 

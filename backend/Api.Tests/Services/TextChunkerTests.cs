@@ -14,11 +14,12 @@ public class TextChunkerTests
         var documentId = Guid.NewGuid();
         var text = "This is a short text sample.";
 
-        var chunks = chunker.ChunkText(documentId, text, maxChunkSize: 100, overlap: 10);
+        var chunks = chunker.ChunkText(documentId, text, pageNumber: 1, maxChunkSize: 100, overlap: 10);
 
         chunks.Should().ContainSingle();
         chunks[0].ChunkIndex.Should().Be(0);
         chunks[0].DocumentId.Should().Be(documentId);
+        chunks[0].PageNumber.Should().Be(1);
         chunks[0].Text.Should().Be(text);
     }
 
@@ -31,11 +32,12 @@ public class TextChunkerTests
         var maxChunkSize = 20;
         var overlap = 5;
 
-        var chunks = chunker.ChunkText(documentId, text, maxChunkSize, overlap);
+        var chunks = chunker.ChunkText(documentId, text, pageNumber: 1, maxChunkSize, overlap);
 
         chunks.Should().HaveCountGreaterThan(1);
         chunks.Select(c => c.ChunkIndex).Should().BeInAscendingOrder();
         chunks.Should().OnlyContain(c => c.DocumentId == documentId);
+        chunks.Should().OnlyContain(c => c.PageNumber == 1);
         chunks.Should().OnlyContain(c => c.Text.Length <= maxChunkSize);
         chunks[0].Text.Should().Be(text.Substring(0, chunks[0].Text.Length));
         chunks[1].Text.Should().Contain(text.Substring(chunks[0].Text.Length - overlap, overlap));
@@ -48,10 +50,11 @@ public class TextChunkerTests
         var documentId = Guid.NewGuid();
         var text = new string('a', 70);
 
-        var chunks = chunker.ChunkText(documentId, text, maxChunkSize: 20, overlap: 5);
+        var chunks = chunker.ChunkText(documentId, text, pageNumber: 1, maxChunkSize: 20, overlap: 5);
 
         chunks.Should().HaveCountGreaterThan(1);
         chunks.Should().OnlyContain(c => c.Text.All(ch => ch == 'a'));
+        chunks.Should().OnlyContain(c => c.PageNumber == 1);
         chunks.Select(c => c.ChunkIndex).Should().BeInAscendingOrder();
         chunks.Last().Text.Length.Should().BeLessThan(21);
     }
