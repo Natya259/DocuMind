@@ -121,3 +121,16 @@ C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\obj\Debug\ne
 C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\obj\Debug\net10.0\Api.Tests.pdb
 C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\obj\Debug\net10.0\Api.Tests.genruntimeconfig.cache
 C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\obj\Debug\net10.0\ref\Api.Tests.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\storage\Chunks\chunks_42733027-252e-459c-b2a1-1cd40d186fd4.json
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\storage\Chunks\chunks_99616b66-416a-4a75-8a6a-f26e7e49b30e.json
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\Google.Apis.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\Google.Apis.Auth.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\Google.Apis.Core.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\Google.GenAI.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\Microsoft.Extensions.AI.Abstractions.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\System.CodeDom.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\System.Management.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\Api.Tests\bin\Debug\net10.0\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api.tests\bin\Debug\net10.0\storage\Chunks\chunks_8bd16898-33da-4b0c-8709-3fb2688d73ee.json
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api.tests\bin\Debug\net10.0\storage\Chunks\chunks_ba47acbf-4883-4127-9300-312a562eb677.json
+C:\Users\natya\OneDrive\Documents\GitHub\DocuMind\backend\api.tests\bin\Debug\net10.0\storage\Chunks\chunks_ca4f1349-7472-483c-af51-332fb07667ee.json

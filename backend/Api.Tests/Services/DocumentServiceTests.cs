@@ -3,6 +3,7 @@ using DocuMind.Api.Common.Models;
 using DocuMind.Api.Features.Documents.Upload;
 using DocuMind.Api.Services.ChunkRepositoryService;
 using DocuMind.Api.Services.DocumentService;
+using DocuMind.Api.Services.EmbeddingService;
 using DocuMind.Api.Services.ExtractAndChunkService;
 using DocuMind.Api.Services.FileStorageService;
 using FluentAssertions;
@@ -19,8 +20,9 @@ public class DocumentServiceTests
         var fileStorageService = new Mock<IFileStorageService>();
         var pdfTextExtractor = new Mock<IPdfTextExtractor>();
         var chunkRepository = new Mock<IChunkRepository>();
+        var embeddingService = new Mock<IEmbeddingService>();
 
-        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object);
+        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object, embeddingService.Object);
 
         var request = new UploadDocumentRequestDTO
         {
@@ -41,8 +43,9 @@ public class DocumentServiceTests
         var fileStorageService = new Mock<IFileStorageService>();
         var pdfTextExtractor = new Mock<IPdfTextExtractor>();
         var chunkRepository = new Mock<IChunkRepository>();
+        var embeddingService = new Mock<IEmbeddingService>();
 
-        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object);
+        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object, embeddingService.Object);
 
         var request = new UploadDocumentRequestDTO();
         for (var i = 0; i < 6; i++)
@@ -64,8 +67,9 @@ public class DocumentServiceTests
         var fileStorageService = new Mock<IFileStorageService>();
         var pdfTextExtractor = new Mock<IPdfTextExtractor>();
         var chunkRepository = new Mock<IChunkRepository>();
+        var embeddingService = new Mock<IEmbeddingService>();
 
-        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object);
+        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object, embeddingService.Object);
 
         var request = new UploadDocumentRequestDTO();
         request.Files.Add(CreateFormFile("empty.pdf", 0, "application/pdf"));
@@ -84,8 +88,9 @@ public class DocumentServiceTests
         var fileStorageService = new Mock<IFileStorageService>();
         var pdfTextExtractor = new Mock<IPdfTextExtractor>();
         var chunkRepository = new Mock<IChunkRepository>();
+        var embeddingService = new Mock<IEmbeddingService>();
 
-        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object);
+        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object, embeddingService.Object);
 
         var request = new UploadDocumentRequestDTO();
         request.Files.Add(CreateFormFile("document.txt", 1, "text/plain"));
@@ -104,8 +109,9 @@ public class DocumentServiceTests
         var fileStorageService = new Mock<IFileStorageService>();
         var pdfTextExtractor = new Mock<IPdfTextExtractor>();
         var chunkRepository = new Mock<IChunkRepository>();
+        var embeddingService = new Mock<IEmbeddingService>();
 
-        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object);
+        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object, embeddingService.Object);
 
         var request = new UploadDocumentRequestDTO();
         request.Files.Add(CreateFormFile("big.pdf", 10 * 1024 * 1024 + 1, "application/pdf"));
@@ -124,6 +130,7 @@ public class DocumentServiceTests
         var fileStorageService = new Mock<IFileStorageService>();
         var pdfTextExtractor = new Mock<IPdfTextExtractor>();
         var chunkRepository = new Mock<IChunkRepository>();
+        var embeddingService = new Mock<IEmbeddingService>();
 
         var storedDocuments = new[]
         {
@@ -160,7 +167,11 @@ public class DocumentServiceTests
             .Setup(r => r.SaveChunksAsync(extractedChunks))
             .ReturnsAsync(true);
 
-        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object);
+        embeddingService
+            .Setup(e => e.GenerateEmbeddingsAsync(extractedChunks))
+            .Returns(Task.CompletedTask);
+
+        var service = new DocumentService(fileStorageService.Object, pdfTextExtractor.Object, chunkRepository.Object, embeddingService.Object);
         var request = new UploadDocumentRequestDTO();
         request.Files.Add(CreateFormFile("sample.pdf", 1, "application/pdf"));
 

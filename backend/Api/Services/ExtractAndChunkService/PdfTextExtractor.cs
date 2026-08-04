@@ -14,26 +14,28 @@ public class PdfTextExtractor : IPdfTextExtractor
     public async Task<List<Chunk>> ExtractTextFromPdfAsync(UploadedDocuments[] documents)
     {
         List<Chunk> result = new List<Chunk>();
-        string extractedTexts;
-        foreach(var document in documents)
+        foreach (var document in documents)
         {
-            
-            var text = new StringBuilder();
+            using var pdf = PdfDocument.Open(document.FilePath);
+            var chunkIndex = 0;
 
-            using (var pdf = PdfDocument.Open(document.FilePath))
+            foreach (var page in pdf.GetPages())
             {
-                //get size of pdf file in bytes
-                var fileInfo = new FileInfo(document.FilePath);
-                foreach (var page in pdf.GetPages())
+                var pageText = page.Text?.Trim();
+                if (string.IsNullOrWhiteSpace(pageText))
                 {
-                    text.AppendLine(page.Text);
+                    continue;
+                }
+
+                var pageChunks = _textChunker.ChunkText(document.DocumentId, pageText, page.Number);
+                foreach (var chunk in pageChunks)
+                {
+                    chunk.ChunkIndex = chunkIndex++;
+                    result.Add(chunk);
                 }
             }
-            extractedTexts = text.ToString();
-             // send extractedTexts to TextChunker class
-            result = _textChunker.ChunkText(document.DocumentId, extractedTexts);
-
         }
+
         return result;
 
        

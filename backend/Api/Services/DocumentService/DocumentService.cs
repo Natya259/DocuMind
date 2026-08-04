@@ -2,6 +2,7 @@ using DocuMind.Api.Common;
 using DocuMind.Api.Common.Models;
 using DocuMind.Api.Features.Documents.Upload;
 using DocuMind.Api.Services.ChunkRepositoryService;
+using DocuMind.Api.Services.EmbeddingService;
 using DocuMind.Api.Services.ExtractAndChunkService;
 using DocuMind.Api.Services.FileStorageService;
 
@@ -12,12 +13,14 @@ public class DocumentService : IDocumentService
     private readonly IFileStorageService _fileStorageService;
     private readonly IPdfTextExtractor _pdfTextExtractor;
     private readonly IChunkRepository _chunkRepository;
+    private readonly IEmbeddingService _embeddingService;
 
-    public DocumentService(IFileStorageService fileStorageService, IPdfTextExtractor pdfTextExtractor, IChunkRepository chunkRepository)
+    public DocumentService(IFileStorageService fileStorageService, IPdfTextExtractor pdfTextExtractor, IChunkRepository chunkRepository, IEmbeddingService embeddingService)
     {
         _fileStorageService = fileStorageService;
         _pdfTextExtractor = pdfTextExtractor;
         _chunkRepository = chunkRepository;
+        _embeddingService = embeddingService;
     }
 
     public async Task<UploadDocumentResponseDTO> UploadDocumentsAsync(UploadDocumentRequestDTO request)
@@ -115,6 +118,9 @@ public class DocumentService : IDocumentService
 
         //call the pdfTextExtractor class to extract text from the uploaded pdfs and store it in the database
         var chunks = await _pdfTextExtractor.ExtractTextFromPdfAsync(uploadedDocuments);
+
+        // generate embeddings for each chunk using the embedding service
+        await _embeddingService.GenerateEmbeddingsAsync(chunks);
 
         //save the chunk using ChunkRepository's SaveChunks method
         await _chunkRepository.SaveChunksAsync(chunks);

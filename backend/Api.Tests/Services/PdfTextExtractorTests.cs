@@ -48,14 +48,14 @@ public class PdfTextExtractorTests
 
             var textChunkerMock = new Mock<ITextChunker>();
             textChunkerMock
-                .Setup(x => x.ChunkText(documentId, It.Is<string>(text => text.Contains("Hello world")), It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.ChunkText(documentId, It.Is<string>(text => text.Contains("Hello world")), It.IsAny<int>()))
                 .Returns(extractedChunks);
 
             var extractor = new PdfTextExtractor(textChunkerMock.Object);
             var result = await extractor.ExtractTextFromPdfAsync(documents);
 
             result.Should().BeSameAs(extractedChunks);
-            textChunkerMock.Verify(x => x.ChunkText(documentId, It.Is<string>(text => text.Contains("Hello world")), It.IsAny<int>(), It.IsAny<int>()), Times.Once);
+            textChunkerMock.Verify(x => x.ChunkText(documentId, It.Is<string>(text => text.Contains("Hello world")), 1), Times.Once);
         }
         finally
         {

@@ -9,7 +9,7 @@ public class Chunk
 
     public string Text { get; set; } = string.Empty;
 
-    public float[]? Embedding { get; set; }
+    public List<float>? Embedding { get; set; }
 
     public int? PageNumber { get; set; }
 }
