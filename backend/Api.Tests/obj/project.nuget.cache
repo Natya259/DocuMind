@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O7kM3T2sh/s=",
+  "dgSpecHash": "uzB/VZ9Ke9U=",
   "success": true,
-  "projectFilePath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\api.tests\\Api.Tests.csproj",
+  "projectFilePath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api.Tests\\Api.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\natya\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\natya\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
@@ -47,9 +47,9 @@
       "code": "NU1902",
       "level": "Warning",
       "message": "Package 'Swashbuckle.AspNetCore.SwaggerUI' 6.2.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-qrmm-w75w-3wpx",
-      "projectPath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\api.tests\\Api.Tests.csproj",
+      "projectPath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api.Tests\\Api.Tests.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\api.tests\\Api.Tests.csproj",
+      "filePath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api.Tests\\Api.Tests.csproj",
       "libraryId": "Swashbuckle.AspNetCore.SwaggerUI",
       "targetGraphs": [
         "net10.0"

@@ -1837,11 +1837,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\api.tests\\Api.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api.Tests\\Api.Tests.csproj",
       "projectName": "Api.Tests",
-      "projectPath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\api.tests\\Api.Tests.csproj",
+      "projectPath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api.Tests\\Api.Tests.csproj",
       "packagesPath": "C:\\Users\\natya\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\api.tests\\obj\\",
+      "outputPath": "C:\\Users\\natya\\OneDrive\\Documents\\GitHub\\DocuMind\\backend\\Api.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

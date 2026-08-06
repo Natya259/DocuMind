@@ -1,3 +1,4 @@
+using System.Text.Json;
 using DocuMind.Api.Common.Models;
 
 namespace DocuMind.Api.Services.ChunkRepositoryService;    
@@ -32,18 +33,28 @@ public class ChunkRepository : IChunkRepository
     }
 
     //write another method to load chunks from the path
-    public async Task<List<Chunk>> LoadChunksAsync(string fileName)
+    public async Task<List<Chunk>> LoadAllChunksAsync()
     {
-        var filePath = Path.Combine(_storagePath, fileName);
+        var chunkDirectory = Path.Combine(
+        Directory.GetCurrentDirectory(),
+        "Storage",
+        "Chunks");
 
-        if (!File.Exists(filePath))
+    var chunks = new List<Chunk>();
+
+    foreach (var file in Directory.GetFiles(chunkDirectory, "*.json"))
+    {
+        var json = await File.ReadAllTextAsync(file);
+
+        var documentChunks =
+            JsonSerializer.Deserialize<List<Chunk>>(json);
+
+        if (documentChunks != null)
         {
-            throw new FileNotFoundException($"The file {fileName} does not exist in the storage path.");
+            chunks.AddRange(documentChunks);
         }
+    }
 
-        var json = File.ReadAllText(filePath);
-        var chunks = System.Text.Json.JsonSerializer.Deserialize<List<Chunk>>(json);
-
-        return chunks ?? new List<Chunk>();
+    return chunks;
     }
 }

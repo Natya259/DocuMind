@@ -64,7 +64,7 @@ public class ChunkRepositoryTests
     }
 
     [Fact]
-    public async Task LoadChunksAsync_ReturnsChunksFromExistingFile()
+    public async Task LoadAllChunksAsync_ReturnsChunksFromExistingFiles()
     {
         var originalDirectory = Environment.CurrentDirectory;
         var tempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
@@ -73,33 +73,44 @@ public class ChunkRepositoryTests
         try
         {
             Environment.CurrentDirectory = tempDirectory;
-            var documentId = Guid.NewGuid();
-            var expectedFileName = $"chunks_{documentId}.json";
             var storageDirectory = Path.Combine(tempDirectory, "Storage", "Chunks");
             Directory.CreateDirectory(storageDirectory);
 
-            var chunks = new List<Chunk>
+            var firstDocumentId = Guid.NewGuid();
+            var firstChunks = new List<Chunk>
             {
                 new Chunk
                 {
                     ChunkId = Guid.NewGuid(),
-                    DocumentId = documentId,
+                    DocumentId = firstDocumentId,
                     ChunkIndex = 0,
-                    Text = "Persisted text",
-                    PageNumber = 3
+                    Text = "First document chunk",
+                    PageNumber = 1
                 }
             };
 
-            var json = JsonSerializer.Serialize(chunks);
-            await File.WriteAllTextAsync(Path.Combine(storageDirectory, expectedFileName), json);
+            var secondDocumentId = Guid.NewGuid();
+            var secondChunks = new List<Chunk>
+            {
+                new Chunk
+                {
+                    ChunkId = Guid.NewGuid(),
+                    DocumentId = secondDocumentId,
+                    ChunkIndex = 0,
+                    Text = "Second document chunk",
+                    PageNumber = 2
+                }
+            };
+
+            await File.WriteAllTextAsync(Path.Combine(storageDirectory, $"chunks_{firstDocumentId}.json"), JsonSerializer.Serialize(firstChunks));
+            await File.WriteAllTextAsync(Path.Combine(storageDirectory, $"chunks_{secondDocumentId}.json"), JsonSerializer.Serialize(secondChunks));
 
             var repository = new ChunkRepository();
-            var loadedChunks = await repository.LoadChunksAsync(expectedFileName);
+            var loadedChunks = await repository.LoadAllChunksAsync();
 
-            loadedChunks.Should().HaveCount(1);
-            loadedChunks[0].DocumentId.Should().Be(documentId);
-            loadedChunks[0].Text.Should().Be("Persisted text");
-            loadedChunks[0].PageNumber.Should().Be(3);
+            loadedChunks.Should().HaveCount(2);
+            loadedChunks.Select(c => c.DocumentId).Should().BeEquivalentTo(new[] { firstDocumentId, secondDocumentId });
+            loadedChunks.Select(c => c.Text).Should().Contain(new[] { "First document chunk", "Second document chunk" });
         }
         finally
         {
@@ -130,7 +141,7 @@ public class ChunkRepositoryTests
     }
 
     [Fact]
-    public async Task LoadChunksAsync_ThrowsFileNotFoundException_WhenFileDoesNotExist()
+    public async Task LoadAllChunksAsync_ReturnsEmptyList_WhenNoChunkFilesExist()
     {
         var originalDirectory = Environment.CurrentDirectory;
         var tempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
@@ -140,9 +151,10 @@ public class ChunkRepositoryTests
         {
             Environment.CurrentDirectory = tempDirectory;
             var repository = new ChunkRepository();
-            var missingFileName = "chunks_missing-document.json";
 
-            await Assert.ThrowsAsync<FileNotFoundException>(() => repository.LoadChunksAsync(missingFileName));
+            var loadedChunks = await repository.LoadAllChunksAsync();
+
+            loadedChunks.Should().BeEmpty();
         }
         finally
         {

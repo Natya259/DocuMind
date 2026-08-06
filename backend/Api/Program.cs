@@ -1,9 +1,11 @@
 using DocuMind.Api.Features.Documents.Upload;
+using DocuMind.Api.Features.Search;
 using DocuMind.Api.Services.ChunkRepositoryService;
 using DocuMind.Api.Services.DocumentService;
 using DocuMind.Api.Services.EmbeddingService;
 using DocuMind.Api.Services.ExtractAndChunkService;
 using DocuMind.Api.Services.FileStorageService;
+using DocuMind.Api.Services.SearchService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,7 @@ builder.Services.AddScoped<IChunkRepository, ChunkRepository>();
 builder.Services.AddScoped<IEmbeddingProvider, EmbeddingProvider>();
 builder.Services.AddScoped<IGoogleGenAiClient, GoogleGenAiClient>();
 builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.Configure<GoogleAIOptions>(
 builder.Configuration.GetSection(GoogleAIOptions.SectionName));
 
@@ -53,5 +56,7 @@ app.MapControllers();
 
 app.MapHealthChecks("/health");
 app.MapUploadDocumentEndpoint();
+app.MapSearchEndpoint();
+
 
 app.Run();

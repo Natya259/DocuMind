@@ -27,7 +27,7 @@ public class PdfTextExtractor : IPdfTextExtractor
                     continue;
                 }
 
-                var pageChunks = _textChunker.ChunkText(document.DocumentId, pageText, page.Number);
+                var pageChunks = _textChunker.ChunkText(document.DocumentId, pageText, page.Number, document.FileName);
                 foreach (var chunk in pageChunks)
                 {
                     chunk.ChunkIndex = chunkIndex++;
