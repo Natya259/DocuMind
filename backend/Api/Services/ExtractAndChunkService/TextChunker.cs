@@ -3,7 +3,7 @@ using DocuMind.Api.Common.Models;
 namespace DocuMind.Api.Services.ExtractAndChunkService;    
 public class TextChunker : ITextChunker
 {
-    public List<Chunk> ChunkText(Guid documentId, string extractedText, int pageNumber, int maxChunkSize = 700, int overlap = 50)
+    public List<Chunk> ChunkText(Guid documentId, string extractedText, int pageNumber, string documentName, int maxChunkSize = 700, int overlap = 50)
     {
         List<Chunk> chunks = new List<Chunk>();
 
@@ -15,6 +15,7 @@ public class TextChunker : ITextChunker
             {
                 DocumentId = documentId,
                 PageNumber = pageNumber,
+                DocumentName = documentName
             };
 
             int endIndex = Math.Min(startIndex + maxChunkSize, extractedText.Length);

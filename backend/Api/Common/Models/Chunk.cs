@@ -12,4 +12,6 @@ public class Chunk
     public List<float>? Embedding { get; set; }
 
     public int? PageNumber { get; set; }
+
+    public string? DocumentName { get; set; }
 }

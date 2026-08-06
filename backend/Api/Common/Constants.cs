@@ -14,5 +14,7 @@ namespace DocuMind.Api.Common
         public const int EmptyFileErrorCode = 10003;
         public const int UnsupportedFileFormatErrorCode = 10004;
         public const int FileSizeExceededErrorCode = 10005;
+
+        public const double SimilarityThreshold = 0.60;
     }
 }

@@ -6,7 +6,7 @@ function App() {
 
   const [statusCode, setStatusCode] = useState<number | null>(null);
 
-  const handleClick = async () => {
+  const handleDocumentUploadClick = async () => {
     try {
       const inputElement = document.getElementById("fileInput") as HTMLInputElement;
       const formData = new FormData();
@@ -27,13 +27,30 @@ function App() {
     }
   };
 
+  const handleAskClick = async () => {
+    try {
+      const inputElement = document.getElementById("questionInput") as HTMLTextAreaElement;
+      
+
+      const questionResponse = await axios.post("https://localhost:7218/api/search",
+        { question: inputElement.value }
+      );
+      setStatusCode(questionResponse.status);
+
+      console.log(questionResponse.status);
+    } catch (error) {
+      console.error('Error uploading documents:', error);
+    }
+
+  };
+
 
   return (
     <>
       <section id="center">
 
         <div>
-          <h1>Get started</h1>
+          <h1>DocuMind</h1>
           <p>
             Upload your documents and let our AI analyze them for you...
           </p>
@@ -46,10 +63,23 @@ function App() {
         <button
           type="button"
           className="counter"
-          onClick={handleClick}
+          onClick={handleDocumentUploadClick}
         >
           Upload documents
         </button>
+      </section>
+      <section id = "centre">
+        <div>
+          <textarea id="questionInput" placeholder="Ask a question about your documents..." />
+        </div>
+        <button
+          type="button"
+          className="counter"
+          onClick={handleAskClick}
+        >
+          Ask
+        </button>
+          
       </section>
       {
         statusCode !== null && (
